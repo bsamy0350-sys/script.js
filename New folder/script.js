@@ -1,0 +1,189 @@
+var fullName = "Ahmed Ali";
+console.log(fullName.length);
+
+
+var sentence = "I am learning JavaScript";
+console.log(sentence.toUpperCase());
+console.log(sentence.toLowerCase());
+
+var email = "student@nti.com";
+console.log(email.includes("@"));
+
+var word = "JavaScript";
+console.log(word[0]); 
+console.log(word[word.length - 1]); 
+
+var text = "This is a bad day";
+console.log(text.replace("bad", "good"));
+
+var coding = "I love coding";
+var words = coding.split(" ");
+console.log(words);
+console.log(words.join("-"));
+
+var txt = " nti egypt training ";
+var result = txt.trim().toUpperCase().replace("EGYPT", "CAIRO");
+console.log(result);
+
+
+var num = Number("45.8");
+console.log(num);
+
+
+var number = 7.6;
+console.log(Math.round(number));
+console.log(Math.floor(number));
+console.log(Math.ceil(number));
+
+
+console.log(Math.max(12, 5, 28, 9));
+console.log(Math.min(12, 5, 28, 9));
+
+
+var randomNum = Math.floor(Math.random() * 20) + 1;
+console.log(randomNum);
+
+
+var price = 19.4567;
+console.log(price.toFixed(2));
+
+var randomNumbers = [];
+
+for (var i = 0; i < 5; i++) {
+    randomNumbers.push(Math.floor(Math.random() * 50) + 1);
+}
+
+console.log(randomNumbers);
+
+var max = Math.max(...randomNumbers);
+var min = Math.min(...randomNumbers);
+
+var sum = 0;
+for (var n of randomNumbers) {
+    sum += n;
+}
+
+var avg = (sum / randomNumbers.length).toFixed(2);
+
+console.log("Largest:", max);
+console.log("Smallest:", min);
+console.log("Average:", avg);
+
+
+for (var i = 1; i <= 20; i++) {
+    console.log(i);
+}
+
+// 15.
+for (var i = 1; i <= 15; i += 2) {
+    console.log(i);
+}
+
+
+var count = 10;
+while (count >= 1) {
+    console.log(count);
+    count--;
+}
+
+
+var names = ["Sara", "Omar", "Mona", "Youssef"];
+
+for (var name of names) {
+    console.log(name);
+}
+
+
+for (var i = 1; i <= 10; i++) {
+    if (i == 7) {
+        break;
+    }
+    console.log(i);
+}
+
+// 19.
+for (var i = 1; i <= 3; i++) {
+    for (var j = 1; j <= 3; j++) {
+        console.log(`${i} * ${j} = ${i * j}`);
+    }
+}
+
+
+for (var i = 1; i <= 30; i++) {
+
+    if (i == 25) {
+        break;
+    }
+
+    if (i % 3 == 0) {
+        continue;
+    }
+
+    console.log(i);
+}
+
+
+
+var hello = "HELLO";
+
+for (var letter of hello) {
+    console.log(letter);
+}
+
+
+var arr = [10, 20, 30, 40];
+
+var total = 0;
+
+for (var n of arr) {
+    total += n;
+}
+
+console.log(total);
+
+var sentence2 = "JS is amazing";
+
+var counter = 0;
+
+for (var ch of sentence2) {
+    if (ch === "a" || ch === "A") {
+        counter++;
+    }
+}
+
+console.log(counter);
+
+var grades = [70, 85, 92, 60, 77, 88];
+
+for (var grade of grades) {
+    if (grade % 2 === 0) {
+        console.log(grade);
+    }
+}
+
+
+for (var i = 1; i <= 5; i++) {
+    var stars = "";
+
+    for (var j = 1; j <= i; j++) {
+        stars += "* ";
+    }
+
+    console.log(stars);
+}
+
+var students = ["ahmed", "sara", "omar", "laila", "hassan"];
+
+var matched = 0;
+
+for (var student of students) {
+
+    var upper = student.toUpperCase();
+
+    if (upper.startsWith("S")) {
+        console.log(upper);
+        matched++;
+    }
+}
+
+console.log("Matched Names:", matched);

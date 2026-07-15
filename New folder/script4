@@ -1,0 +1,237 @@
+var car = {
+  brand: "Toyota",
+  model: "Corolla",
+  year: 2022,
+  color: "White"
+};
+console.log("1.", car);
+
+
+console.log("2. Brand:", car.brand);
+
+//addational 
+car.color = "Black";
+car.price = 500000;
+
+console.log("3.", car);
+
+
+delete car.year;
+
+console.log("4. car.year =", car.year);
+
+
+var student = {
+  "student-name": "Sara",
+  age: 20
+};
+
+console.log("5.", student["student-name"]);
+
+
+var book = {
+  title: "JavaScript",
+  author: {
+    firstName: "Sara",
+    lastName: "Ahmed"
+  }
+};
+
+console.log("6.", book.author.lastName);
+
+
+var person = {
+  name: "Ali",
+  age: 25,
+  city: "Cairo"
+};
+
+console.log("7. Keys:", Object.keys(person));
+console.log("7. Values:", Object.values(person));
+console.log("7. Has city:", person.hasOwnProperty("city"));
+
+
+var settings = Object.freeze({
+  theme: "dark",
+  fontSize: 16
+});
+
+settings.theme = "light";
+settings.lang = "en";
+
+console.log("8.", settings);
+
+
+
+
+var cities = ["Cairo", "Giza", "Alex", "Luxor", "Aswan"];
+
+console.log("9.", cities);
+console.log("Length:", cities.length);
+
+console.log("10. First:", cities[0]);
+console.log("Second:", cities[1]);
+console.log("Last:", cities[cities.length - 1]);
+
+
+cities.push("Mansoura");
+console.log("11. After push:", cities);
+
+cities.unshift("Tanta");
+console.log("After unshift:", cities);
+
+
+cities.pop();
+console.log("12. After pop:", cities);
+
+cities.shift();
+console.log("After shift:", cities);
+
+
+var courses = ["HTML", "CSS", "JS", "React"];
+
+console.log("13. Index of JS:", courses.indexOf("JS"));
+console.log("Includes Python:", courses.includes("Python"));
+
+
+console.log("14.");
+for (var i = 0; i < courses.length; i++) {
+  console.log(i, courses[i]);
+}
+
+
+console.log("15. forEach");
+["pen", "book", "bag"].forEach((item, index) => {
+  console.log(index, item);
+});
+
+console.log("for...of");
+for (const color of ["red", "green", "blue", "yellow"]) {
+  if (color === "blue") break;
+  console.log(color);
+}
+
+
+const letters = ["A", "B", "C"];
+
+letters.push("D");
+
+console.log("16.", letters);
+console.log("Length:", letters.length);
+
+
+var fruits = ["apple", "banana", "cherry"];
+
+var upper = fruits.map(fruit => fruit.toUpperCase());
+
+console.log("17. Upper:", upper);
+console.log("Original:", fruits);
+
+
+var numbers = [10, 55, 30, 80, 45, 90];
+
+var greaterThan50 = numbers.filter(num => num > 50);
+
+console.log("18.", greaterThan50);
+
+
+// var cities2 = ["Cairo", "Giza", "Alex", "Aswan"];
+
+// var firstA = cities2.find(city => city.startsWith("A"));
+// var firstAIndex = cities2.findIndex(city => city.startsWith("A"));
+
+console.log("19. City:", firstA);
+console.log("Index:", firstAIndex);
+
+
+var arr = ["a", "b", "c", "d", "e"];
+
+var copy = arr.slice(1, 4);
+
+console.log("20. Copy:", copy);
+console.log("Original:", arr);
+
+
+var words = ["one", "two", "three", "four", "five"];
+
+var removed = words.splice(1, 2);
+
+console.log("21. Removed:", removed);
+console.log("Array:", words);
+
+
+var nums = [40, 100, 1, 5, 25];
+
+nums.sort((a, b) => a - b);
+
+console.log("22.", nums);
+
+var ages = [16, 21, 17, 19];
+
+console.log("23. some:", ages.some(age => age >= 18));
+console.log("every:", ages.every(age => age >= 18));
+
+
+var total = [5, 10, 15, 20].reduce((sum, num) => sum + num, 0);
+
+console.log("24. Total:", total);
+
+var students = [
+  { name: "Omar", grade: 80 },
+  { name: "Mona", grade: 90 },
+  { name: "Ali", grade: 70 }
+];
+
+console.log("25.");
+students.forEach(student => {
+  console.log(student.name, student.grade);
+});
+
+
+var passedStudents = students
+  .filter(student => student.grade >= 80)
+  .map(student => student.name);
+
+console.log("26.", passedStudents);
+
+
+var products = [
+  { name: "Pen", price: 10 },
+  { name: "Book", price: 50 },
+  { name: "Bag", price: 25 }
+];
+
+var totalPrice = products.reduce((sum, product) => sum + product.price, 0);
+
+console.log("27. Total Price:", totalPrice);
+
+
+var languages = ["js", "html", "css", "js", "react", "js"];
+
+var countJS = languages.filter(lang => lang === "js").length;
+
+console.log("28. JS Count:", countJS);
+
+
+var classroom = {
+  teacher: "Mr. Ahmed",
+  students: ["Ali", "Sara", "Omar", "Mona"]
+};
+
+console.log("29. Teacher:", classroom.teacher);
+console.log("Students Count:", classroom.students.length);
+console.log("Last Student:", classroom.students[classroom.students.length - 1]);
+
+var items = [
+  { id: 1, title: "Pen", price: 10 },
+  { id: 2, title: "Book", price: 50 },
+  { id: 3, title: "Bag", price: 25 }
+];
+
+var titles = items.map(item => item.title.toUpperCase());
+var cheapProducts = items.filter(item => item.price < 30);
+var totalPrices = items.reduce((sum, item) => sum + item.price, 0);
+
+console.log("30. Titles:", titles);
+console.log("Cheap Products:", cheapProducts);
+console.log("Total Prices:", totalPrices);
