@@ -1,0 +1,46 @@
+var students = [];
+
+function addStudent(name) {
+    students.push(name);
+    console.log(name + " add success.");
+}
+
+function showStudents() {
+    console.log("Students:");
+
+    students.forEach(function(student, index) {
+        console.log(index + ": " + student);
+    });
+}
+
+function updateStudent(index, newName) {
+    if (index >= 0 && index < students.length) {
+        students[index] = newName;
+        console.log("Student updated success.");
+    } else {
+        console.log("Invalid index.");
+    }
+}
+
+function deleteStudent(index) {
+    if (index >= 0 && index < students.length) {
+        students.splice(index, 1);
+        console.log("Student deleted success.");
+    } else {
+        console.log("Invalid index.");
+    }
+}
+
+addStudent("Ahmed");
+addStudent("Sara");
+addStudent("Mona");
+
+showStudents();
+
+updateStudent(1, "Nour");
+
+showStudents();
+
+deleteStudent(0);
+
+showStudents();
