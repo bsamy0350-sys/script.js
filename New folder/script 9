@@ -1,0 +1,81 @@
+var users = [];
+var currentIndex = -1;
+
+if (localStorage.getItem("users") != null) {
+    users = JSON.parse(localStorage.getItem("users"));
+    displayUsers();
+}
+
+function addUser() {
+
+    var user = {
+        fname: document.getElementById("fname").value,
+        lname: document.getElementById("lname").value,
+        age: document.getElementById("age").value,
+        graduated: document.getElementById("isGraduated").checked
+    };
+
+    if (currentIndex == -1) {
+        users.push(user);
+    } else {
+        users[currentIndex] = user;
+        currentIndex = -1;
+        document.getElementById("addBtn").innerHTML = "ADD USER";
+    }
+
+    localStorage.setItem("users", JSON.stringify(users));
+
+    displayUsers();
+    clearInputs();
+}
+
+function displayUsers() {
+
+    var cartona = "";
+
+    for (var i = 0; i < users.length; i++) {
+
+        cartona +=
+        "<tr>" +
+        "<td>" + users[i].fname + "</td>" +
+        "<td>" + users[i].lname + "</td>" +
+        "<td>" + users[i].age + "</td>" +
+        "<td>" + users[i].graduated + "</td>" +
+        "<td>" +
+        "<button onclick='updateUser(" + i + ")'>U</button> " +
+        "<button onclick='deleteUser(" + i + ")'>D</button>" +
+        "</td>" +
+        "</tr>";
+    }
+
+    document.getElementById("tbody").innerHTML = cartona;
+}
+
+function deleteUser(index) {
+
+    users.splice(index, 1);
+
+    localStorage.setItem("users", JSON.stringify(users));
+
+    displayUsers();
+}
+
+function updateUser(index) {
+
+    currentIndex = index;
+
+    document.getElementById("fname").value = users[index].fname;
+    document.getElementById("lname").value = users[index].lname;
+    document.getElementById("age").value = users[index].age;
+    document.getElementById("isGraduated").checked = users[index].graduated;
+
+    document.getElementById("addBtn").innerHTML = "UPDATE USER";
+}
+
+function clearInputs() {
+
+    document.getElementById("fname").value = "";
+    document.getElementById("lname").value = "";
+    document.getElementById("age").value = "";
+    document.getElementById("isGraduated").checked = false;
+}
