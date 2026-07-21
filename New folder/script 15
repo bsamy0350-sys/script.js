@@ -1,0 +1,150 @@
+function banner(title) {
+  console.log(
+    "%c" + title,
+    "background:#0d6efd;color:white;padding:2px 6px;border-radius:4px"
+  );
+}
+
+ //1) Synchronous vs Asynchronous (setTimeout)
+function demoSync() {
+  banner("Synchronous: logs are blocking, strict order");
+  console.log("1");
+  console.log("2");
+  console.log("3");
+}
+
+function demoAsyncSetTimeout() {
+  banner("Asynchronous (setTimeout): schedule a callback");
+  console.log("1");
+  setTimeout(() => {
+    console.log("2 (from setTimeout callback)");
+  }, 0);
+  console.log("3");
+}
+
+ //2) Event Loop ordering demo
+function demoEventLoop() {
+  banner("Event Loop order demo");
+  let x = 10;
+
+  function fun1() {
+    console.log("fun1 -> x =", x);  
+  }
+
+  function fun2() {
+    setTimeout(() => {
+      x = 15;
+      console.log("setTimeout -> x changed to", x); 
+    }, 0);
+  }
+
+  function fun3() {
+    console.log("fun3 -> x + 2 =", x + 2);  
+  }
+
+  fun1(); 
+  fun2(); 
+  fun3(); 
+}
+
+ //3) Callback demo (old-school async control flow)
+function demoCallback() {
+  banner("Callback demo");
+  let x = 10;
+
+  function fun1(next) {
+    console.log("fun1 -> x =", x);
+    next(fun3); 
+  }
+
+  function fun2(done) {
+    setTimeout(() => {
+      x = 15;
+      console.log("fun2 (async) -> x changed:", x); 
+      done(); 
+    }, 0);
+  }
+
+  function fun3() {
+    console.log("fun3 -> x + 2 =", x + 2); 
+  }
+
+  fun1(fun2); 
+}
+
+ //4) Promise chain
+function demoPromiseChain() {
+  banner("Promise chain");
+  const p = new Promise((resolve, reject) => {
+    // pending...
+    setTimeout(() => {
+      const ok = true;
+      if (ok) resolve("Done");
+      else reject("Failed");
+    }, 1000);
+  });
+
+  p.then((result) => {
+    console.log(result); 
+    return result + " -> then1";
+  })
+    .then((result) => {
+      console.log(result); 
+      return result + " -> then2";
+    })
+    .then((result) => {
+      console.log(result); 
+    })
+    .catch((err) => {
+      console.error("catch:", err);
+    });
+}
+
+ //5) Microtasks queue priority (Promise.then) vs macrotasks (setTimeout)
+function demoMicrotasks() {
+  console.log("1");
+
+  setTimeout(() => {
+    console.log("2 (macrotask: setTimeout)");
+  }, 0);
+
+  Promise.resolve().then(() => {
+    console.log("3 (microtask: Promise.then)");
+  });
+
+  console.log("4"); 
+
+ //6) Fetch (before async/await): then / catch
+function demoFetchThen() {
+  fetch("https://jsonplaceholder.typicode.com/posts/1")
+    .then((res) => res.json())
+    .then((data) => console.log("data:", data))
+    .catch((err) => console.error("error:", err));
+}
+
+ //7) Async/Await: syntactic sugar over Promises
+async function demoAsyncAwait() {
+  banner("Async / Await");
+  console.log("Start");
+  try {
+    const res = await fetch("https://jsonplaceholder.typicode.com/posts/1");
+    const data = await res.json();
+    console.log("Data:", data);
+  } catch (err) {
+    console.error("Error:", err);
+  }
+  console.log("End");
+}
+
+
+ //Wire buttons
+document.getElementById("btnSync").addEventListener("click", demoSync);
+document.getElementById("btnAsync").addEventListener("click", demoAsyncSetTimeout);
+document.getElementById("btnEventLoop").addEventListener("click", demoEventLoop);
+
+document.getElementById("btnCallback").addEventListener("click", demoCallback);
+document.getElementById("btnPromise").addEventListener("click", demoPromiseChain);
+document.getElementById("btnMicrotasks").addEventListener("click", demoMicrotasks);
+
+document.getElementById("btnFetchThen").addEventListener("click", demoFetchThen);
+document.getElementById("btnAsyncAwait").addEventListener("click", demoAsyncAwait);

@@ -1,0 +1,22 @@
+const xhr = new XMLHttpRequest();
+ console.log("[1] Created XMLHttpRequest instance");
+ console.log("    readyState =", xhr.readyState); 
+
+xhr.open("GET", URL);
+ console.log("[2] .open('GET', url) called");
+ console.log("    readyState =", xhr.readyState); 
+
+
+ xhr.addEventListener("readystatechange", () => {
+});
+
+xhr.addEventListener("load", () => {
+  console.log("[load] event fired. status =", xhr.response);
+});
+
+xhr.addEventListener("error", () => {
+      console.error("[error] Network problem - request never reached the server.");
+ });
+
+xhr.send();
+ console.log("[3] .send() called - waiting for response...");
