@@ -1,81 +1,117 @@
-var users = [];
+var persons = JSON.parse(localStorage.getItem("persons")) || [];
 var currentIndex = -1;
 
-if (localStorage.getItem("users") != null) {
-    users = JSON.parse(localStorage.getItem("users"));
-    displayUsers();
-}
+displayData(persons);
 
-function addUser() {
 
-    var user = {
-        fname: document.getElementById("fname").value,
-        lname: document.getElementById("lname").value,
+function savePerson() {
+
+    var person = {
+        firstName: document.getElementById("firstName").value,
+        lastName: document.getElementById("lastName").value,
         age: document.getElementById("age").value,
-        graduated: document.getElementById("isGraduated").checked
+        gender: document.getElementById("gender").value,
+        department: document.getElementById("department").value,
+        isGraduated: document.getElementById("graduated").checked
     };
 
     if (currentIndex == -1) {
-        users.push(user);
+
+        persons.push(person);
+
     } else {
-        users[currentIndex] = user;
+
+        persons[currentIndex] = person;
         currentIndex = -1;
-        document.getElementById("addBtn").innerHTML = "ADD USER";
+
+        document.getElementById("saveBtn").innerHTML = "Add Person";
     }
 
-    localStorage.setItem("users", JSON.stringify(users));
+    localStorage.setItem("persons", JSON.stringify(persons));
 
-    displayUsers();
-    clearInputs();
+    displayData(persons);
+
+    clearData();
 }
 
-function displayUsers() {
+
+function displayData(arr) {
 
     var cartona = "";
 
-    for (var i = 0; i < users.length; i++) {
+    for (var i = 0; i < arr.length; i++) {
 
-        cartona +=
-        "<tr>" +
-        "<td>" + users[i].fname + "</td>" +
-        "<td>" + users[i].lname + "</td>" +
-        "<td>" + users[i].age + "</td>" +
-        "<td>" + users[i].graduated + "</td>" +
-        "<td>" +
-        "<button onclick='updateUser(" + i + ")'>U</button> " +
-        "<button onclick='deleteUser(" + i + ")'>D</button>" +
-        "</td>" +
-        "</tr>";
+        cartona += `
+        <tr>
+            <td>${arr[i].firstName} ${arr[i].lastName}</td>
+            <td>${arr[i].age}</td>
+            <td>${arr[i].gender}</td>
+            <td>${arr[i].department}</td>
+            <td>${arr[i].isGraduated ? "Graduate" : "Student"}</td>
+
+            <td>
+                <button onclick="editPerson(${i})">Edit</button>
+                <button onclick="deletePerson(${i})">Delete</button>
+            </td>
+        </tr>
+        `;
     }
 
     document.getElementById("tbody").innerHTML = cartona;
 }
 
-function deleteUser(index) {
 
-    users.splice(index, 1);
+function deletePerson(index) {
 
-    localStorage.setItem("users", JSON.stringify(users));
+    persons.splice(index, 1);
 
-    displayUsers();
+    localStorage.setItem("persons", JSON.stringify(persons));
+
+    displayData(persons);
 }
 
-function updateUser(index) {
+
+function editPerson(index) {
 
     currentIndex = index;
 
-    document.getElementById("fname").value = users[index].fname;
-    document.getElementById("lname").value = users[index].lname;
-    document.getElementById("age").value = users[index].age;
-    document.getElementById("isGraduated").checked = users[index].graduated;
+    document.getElementById("firstName").value = persons[index].firstName;
+    document.getElementById("lastName").value = persons[index].lastName;
+    document.getElementById("age").value = persons[index].age;
+    document.getElementById("gender").value = persons[index].gender;
+    document.getElementById("department").value = persons[index].department;
+    document.getElementById("graduated").checked = persons[index].isGraduated;
 
-    document.getElementById("addBtn").innerHTML = "UPDATE USER";
+    document.getElementById("saveBtn").innerHTML = "Update Person";
 }
 
-function clearInputs() {
 
-    document.getElementById("fname").value = "";
-    document.getElementById("lname").value = "";
+function clearData() {
+
+    document.getElementById("firstName").value = "";
+    document.getElementById("lastName").value = "";
     document.getElementById("age").value = "";
-    document.getElementById("isGraduated").checked = false;
+    document.getElementById("gender").value = "";
+    document.getElementById("department").value = "";
+    document.getElementById("graduated").checked = false;
+}
+
+
+function searchPerson(term) {
+
+    var result = [];
+
+    for (var i = 0; i < persons.length; i++) {
+
+        if (
+            persons[i].firstName.toLowerCase().includes(term.toLowerCase()) ||
+            persons[i].lastName.toLowerCase().includes(term.toLowerCase()) ||
+            persons[i].department.toLowerCase().includes(term.toLowerCase())
+        ) {
+
+            result.push(persons[i]);
+        }
+    }
+
+    displayData(result);
 }
